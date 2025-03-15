@@ -1,0 +1,53 @@
+$ docker run -it sistema_faculdade
+
+Menu de Opções:
+1. Cadastrar Professor
+2. Listar Professores
+3. Atualizar Professor
+4. Remover Professor
+5. Sair
+Escolha uma opção: 1
+Digite o nome do professor: chris
+Digite o e-mail do professor: chris@inatel.br
+Digite a sala de atendimento do professor: 2
+Professor chris cadastrado com sucesso!
+
+Menu de Opções:
+1. Cadastrar Professor
+2. Listar Professores
+3. Atualizar Professor
+4. Remover Professor
+5. Sair
+Escolha uma opção: 2
+Nome: chris, E-mail: chris@inatel.br, Sala: 2
+
+Menu de Opções:
+1. Cadastrar Professor
+2. Listar Professores
+3. Atualizar Professor
+4. Remover Professor
+5. Sair
+Escolha uma opção: 1
+Digite o nome do professor: marcelo
+Digite o e-mail do professor: marcelo@inatel.br
+Digite a sala de atendimento do professor: 3
+Professor marcelo cadastrado com sucesso!
+
+Menu de Opções:
+1. Cadastrar Professor
+2. Listar Professores
+3. Atualizar Professor
+4. Remover Professor
+5. Sair
+Escolha uma opção: 2
+Nome: chris, E-mail: chris@inatel.br, Sala: 2
+Nome: marcelo, E-mail: marcelo@inatel.br, Sala: 3
+
+Menu de Opções:
+1. Cadastrar Professor
+2. Listar Professores
+3. Atualizar Professor
+4. Remover Professor
+5. Sair
+Escolha uma opção: 5
+Saindo...
