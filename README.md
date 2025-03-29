@@ -17,7 +17,7 @@
 
 ## [Prática-3](./aulas/pratica-3/) - 29/03 - Middleware com FastAPI
 - [Middleware com FastAPI](./aulas/pratica-3/middleware_fastapi.md)
-- [Testes com Postman](./aulas/pratica-3/postman/postman.md)
+- [Testes com Postman](./aulas/pratica-3/postman.md)
 
 ## [Prática-4a](./aulas/pratica-4a/) - 12/04 - Preparando o Middleware para CRUD
 - [Preparando o Middleware para CRUD](./aulas/pratica-4a/crud-middleware-1.md)
