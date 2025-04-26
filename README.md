@@ -25,7 +25,6 @@
 
 ## [Prática-4b](./aulas/pratica-4b/) - 26/04 - Acessando Postgresql via Middleware
 - [Usando Postgresql via Middleware](./aulas/pratica-4b/crud-postgresql.md)
-- [Testes com Postman](./aulas/pratica-4b/postman/postman.md)
 
 ## [Prática-5](./aulas/pratica-5/) - 10/05 - Frontend com Flask
 - [Frontend Flask](./aulas/pratica-5/frontend-flask.md)

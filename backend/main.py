@@ -1,19 +1,11 @@
 from fastapi import FastAPI, HTTPException, Request
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import Optional, List
+import asyncpg
+import os
 import time
 
 app = FastAPI()
-
-professores = [
-    {"id": 1, "nome": "Professor 1", "email": "professor_1@example.com", "sala_de_atendimento": "Sala 101"},
-    {"id": 2, "nome": "Professor 2", "email": "professor_2@example.com", "sala_de_atendimento": "Sala 102"}
-]
-
-class ProfessorBase(BaseModel):
-    nome: str
-    email: str
-    sala_de_atendimento: str
 
 class Professor(BaseModel):
     id: Optional[int] = None
@@ -26,99 +18,97 @@ class ProfessorAtualizar(BaseModel):
     email: Optional[str] = None
     sala_de_atendimento: Optional[str] = None
 
-
-# Funções auxiliares
-def gerar_id_unico():
-    """
-    Fun o para gerar um ID  único para cada professor.
-    
-    Caso a lista de professores esteja vazia, retorna 1.
-    Caso contr rio, retorna o maior ID presente na lista de professores + 1.
-    """
-    if professores:
-        return max(prof["id"] for prof in professores) + 1
-    return 1
-
-def buscar_professor_por_id(professor_id: int):
-    """
-    Busca um professor na lista de professores pelo seu ID.
-    
-    Se o professor for encontrado, retorna o dicionário com as informa es do professor.
-    Caso contrário, retorna None.
-    """
-    for prof in professores:
-        if prof["id"] == professor_id:
-            return prof
-    return None
+async def get_database():
+    DATABASE_URL = os.getenv("PGURL", "postgres://postgres:postgres@db:5432/professores")
+    return await asyncpg.connect(DATABASE_URL)
 
 @app.middleware("http")
-async def log_middleware(request: Request, call_next):
-    inicio = time.time()
+async def log_requests(request: Request, call_next):
+    start = time.time()
     response = await call_next(request)
-    duracao = time.time() - inicio
-    print(f"{request.method} {request.url.path} - {duracao:.4f}s")
+    duration = time.time() - start
+    print(f"{request.method} {request.url.path} - {duration:.4f}s")
     return response
 
 @app.post("/api/v1/professores/", status_code=201)
-def criar_professor(professor: ProfessorBase):
-    for prof in professores:
-        if prof["email"] == professor.email:
+async def criar_professor(professor: Professor):
+    conn = await get_database()
+    try:
+        existe = await conn.fetchval("SELECT 1 FROM professores WHERE email=$1", professor.email)
+        if existe:
             raise HTTPException(status_code=400, detail="Email já cadastrado.")
-    novo_professor = professor.dict()
-    novo_professor["id"] = gerar_id_unico()
-    # Adiciona o novo professor à lista de professores
-    professores.append(novo_professor)
-    return {"message": "Professor cadastrado com sucesso!", "professor": professor}
+        await conn.execute(
+            "INSERT INTO professores (nome, email, sala_de_atendimento) VALUES ($1, $2, $3)",
+            professor.nome, professor.email, professor.sala_de_atendimento
+        )
+        return {"message": "Professor cadastrado com sucesso!"}
+    finally:
+        await conn.close()
 
 @app.get("/api/v1/professores/", response_model=List[Professor])
-def listar_professores():
-    return professores
+async def listar_professores():
+    conn = await get_database()
+    try:
+        rows = await conn.fetch("SELECT * FROM professores ORDER BY id")
+        return [dict(row) for row in rows]
+    finally:
+        await conn.close()
 
 @app.get("/api/v1/professores/{professor_id}")
-def obter_professor(professor_id: int):
-    for prof in professores:
-        if prof["id"] == professor_id:
-            return prof
-    raise HTTPException(status_code=404, detail="Professor não encontrado.")
+async def obter_professor(professor_id: int):
+    conn = await get_database()
+    try:
+        prof = await conn.fetchrow("SELECT * FROM professores WHERE id=$1", professor_id)
+        if not prof:
+            raise HTTPException(status_code=404, detail="Professor não encontrado.")
+        return dict(prof)
+    finally:
+        await conn.close()
 
 @app.patch("/api/v1/professores/{professor_id}")
-def atualizar_professor(professor_id: int, dados: ProfessorAtualizar):
-    professor = buscar_professor_por_id(professor_id)
-    if professor is None:
-        raise HTTPException(status_code=404, detail="Professor não encontrado.")
-    
-    # Verifica se o email já existe para outro professor
-    if dados.email:
-        for prof in professores:
-            if prof["email"] == dados.email and prof["id"] != professor_id:
+async def atualizar_professor(professor_id: int, dados: ProfessorAtualizar):
+    conn = await get_database()
+    try:
+        prof = await conn.fetchrow("SELECT * FROM professores WHERE id=$1", professor_id)
+        if not prof:
+            raise HTTPException(status_code=404, detail="Professor não encontrado.")
+
+        if dados.email:
+            existe = await conn.fetchval(
+                "SELECT 1 FROM professores WHERE email=$1 AND id<>$2", dados.email, professor_id)
+            if existe:
                 raise HTTPException(status_code=400, detail="Email já cadastrado.")
 
-    # Atualiza os dados do professor
-    if dados.nome is not None:
-        professor["nome"] = dados.nome
-    if dados.email is not None:
-        professor["email"] = dados.email
-    if dados.sala_de_atendimento is not None:
-        professor["sala_de_atendimento"] = dados.sala_de_atendimento
-
-    # Retorna o professor atualizado    
-    return {"message": "Professor atualizado com sucesso!", "professor": professor}
-
+        await conn.execute("""
+            UPDATE professores
+            SET nome = COALESCE($1, nome),
+                email = COALESCE($2, email),
+                sala_de_atendimento = COALESCE($3, sala_de_atendimento)
+            WHERE id = $4
+        """, dados.nome, dados.email, dados.sala_de_atendimento, professor_id)
+        return {"message": "Professor atualizado com sucesso!"}
+    finally:
+        await conn.close()
 
 @app.delete("/api/v1/professores/{professor_id}")
-def remover_professor(professor_id: int):
-    for prof in professores:
-        if prof["id"] == professor_id:
-            professores.remove(prof)
-            return {"message": "Professor removido com sucesso!"}
-    raise HTTPException(status_code=404, detail="Professor não encontrado.")
+async def remover_professor(professor_id: int):
+    conn = await get_database()
+    try:
+        result = await conn.execute("DELETE FROM professores WHERE id=$1", professor_id)
+        if result == "DELETE 0":
+            raise HTTPException(status_code=404, detail="Professor não encontrado.")
+        return {"message": "Professor removido com sucesso!"}
+    finally:
+        await conn.close()
 
-# Reiniciar o dataset
 @app.delete("/api/v1/professores/")
-def limpar_professores():
-    global professores
-    professores = [
-        {"id": 1, "nome": "Professor 1", "email": "professor_1@example.com", "sala_de_atendimento": "Sala 101"},
-        {"id": 2, "nome": "Professor 2", "email": "professor_2@example.com", "sala_de_atendimento": "Sala 102"}
-    ]
-    return {"message": "Dataset limpo com sucesso!", "professores": professores}
+async def resetar_professores():
+    conn = await get_database()
+    try:
+        init_sql = os.getenv("INIT_SQL", "db/init.sql")
+        with open(init_sql, 'r') as f:
+            sql = f.read()
+        await conn.execute(sql)
+        return {"message": "Banco de dados restaurado com sucesso!"}
+    finally:
+        await conn.close()
