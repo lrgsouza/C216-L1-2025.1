@@ -1,0 +1,229 @@
+AzureAD+LucasRibeiroGarciade@DESKTOP-4UPFNRA MINGW64 ~/OneDrive/FACULDADE/MONITORIA/2025.01/C216-L1-2025.1 (master)
+$ docker-compose up --build
+[+] Building 0.7s (2/2)                                                                                                                                                                                                                                                                                                                          docker:desktop-linux
+[+] Building 1.6s (16/16) FINISHED                                                                                                                                                                                                                                                                                                               docker:desktop-linux
+ => [backend internal] load build definition from Dockerfile                                                                                                                                                                                                                                                                                                     0.0s 
+ => => transferring dockerfile: 420B                                                                                                                                                                                                                                                                                                                             0.0s 
+ => [frontend internal] load metadata for docker.io/library/python:3.10-slim                                                                                                                                                                                                                                                                                     1.0s
+ => [backend internal] load .dockerignore                                                                                                                                                                                                                                                                                                                        0.0s
+ => => transferring context: 2B                                                                                                                                                                                                                                                                                                                                  0.0s 
+ => [frontend 1/4] FROM docker.io/library/python:3.10-slim@sha256:e1013c40c02a7875ae30c78c69b68ea7bee31713e8ac1c0f5469c1206258d6d7                                                                                                                                                                                                                               0.0s 
+ => [backend internal] load build context                                                                                                                                                                                                                                                                                                                        0.0s 
+ => => transferring context: 5.21kB                                                                                                                                                                                                                                                                                                                              0.0s 
+ => CACHED [backend 2/4] WORKDIR /app                                                                                                                                                                                                                                                                                                                            0.0s 
+ => CACHED [backend 3/4] COPY . .                                                                                                                                                                                                                                                                                                                                0.0s 
+ => CACHED [backend 4/4] RUN pip install -r requirements.txt                                                                                                                                                                                                                                                                                                     0.0s 
+ => [backend] exporting to image                                                                                                                                                                                                                                                                                                                                 0.0s 
+ => => exporting layers                                                                                                                                                                                                                                                                                                                                          0.0s 
+ => => writing image sha256:260bf5a93a1dd4a3e1715c84f2e1ca838d221f8c0e41ef2fd46964a009eeadc8                                                                                                                                                                                                                                                                     0.0s 
+ => => naming to docker.io/library/c216-l1-20251-backend                                                                                                                                                                                                                                                                                                         0.0s 
+ => [frontend internal] load build definition from Dockerfile                                                                                                                                                                                                                                                                                                    0.0s
+ => => transferring dockerfile: 540B                                                                                                                                                                                                                                                                                                                             0.0s 
+ => [frontend internal] load .dockerignore                                                                                                                                                                                                                                                                                                                       0.0s
+ => => transferring context: 2B                                                                                                                                                                                                                                                                                                                                  0.0s 
+ => [frontend internal] load build context                                                                                                                                                                                                                                                                                                                       0.0s 
+ => => transferring context: 9.03kB                                                                                                                                                                                                                                                                                                                              0.0s
+ => CACHED [frontend 2/4] RUN pip install flask requests                                                                                                                                                                                                                                                                                                         0.0s 
+ => CACHED [frontend 3/4] WORKDIR /app                                                                                                                                                                                                                                                                                                                           0.0s 
+ => [frontend 4/4] COPY . /app                                                                                                                                                                                                                                                                                                                                   0.0s 
+ => [frontend] exporting to image                                                                                                                                                                                                                                                                                                                                0.1s 
+ => => exporting layers                                                                                                                                                                                                                                                                                                                                          0.0s 
+ => => writing image sha256:ec2da6835d241fca688064b8b82fbec6ed870db60462c1f6a70dee1c921440f3                                                                                                                                                                                                                                                                     0.0s 
+ => => naming to docker.io/library/c216-l1-20251-frontend                                                                                                                                                                                                                                                                                                        0.0s 
+[+] Running 3/3
+ ✔ Container c216-l1-20251-db-1        Created                                                                                                                                                                                                                                                                                                                   0.0s 
+ ✔ Container c216-l1-20251-backend-1   Created                                                                                                                                                                                                                                                                                                                   0.0s 
+ ✔ Container c216-l1-20251-frontend-1  Recreated                                                                                                                                                                                                                                                                                                                 0.2s 
+Attaching to backend-1, db-1, frontend-1
+db-1        | 
+db-1        | PostgreSQL Database directory appears to contain a database; Skipping initialization
+db-1        |
+db-1        | 2025-05-18 19:10:00.604 UTC [1] LOG:  starting PostgreSQL 17.4 (Debian 17.4-1.pgdg120+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14) 12.2.0, 64-bit
+db-1        | 2025-05-18 19:10:00.605 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+db-1        | 2025-05-18 19:10:00.605 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+db-1        | 2025-05-18 19:10:00.610 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+db-1        | 2025-05-18 19:10:00.618 UTC [29] LOG:  database system was shut down at 2025-05-18 19:09:55 UTC
+db-1        | 2025-05-18 19:10:00.626 UTC [1] LOG:  database system is ready to accept connections
+backend-1   | INFO:     Started server process [1]
+backend-1   | INFO:     Waiting for application startup.
+backend-1   | INFO:     Application startup complete.
+backend-1   | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+frontend-1  |  * Serving Flask app 'app'
+frontend-1  |  * Debug mode: on
+frontend-1  | WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+frontend-1  |  * Running on all addresses (0.0.0.0)
+frontend-1  |  * Running on http://127.0.0.1:3000
+frontend-1  |  * Running on http://172.18.0.4:3000
+frontend-1  | Press CTRL+C to quit
+frontend-1  |  * Restarting with stat
+frontend-1  |  * Debugger is active!
+frontend-1  |  * Debugger PIN: 129-248-215
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:10:04] "GET / HTTP/1.1" 200 -
+backend-1   | DELETE /api/v1/professores/ - 0.0471s
+backend-1   | INFO:     172.18.0.4:47616 - "DELETE /api/v1/professores/ HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:10:47] "GET /reset HTTP/1.1" 302 -
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:10:47] "GET / HTTP/1.1" 200 -
+backend-1   | GET /api/v1/professores/ - 0.0345s
+backend-1   | INFO:     172.18.0.4:47632 - "GET /api/v1/professores/ HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:10:50] "GET /professores HTTP/1.1" 200 -
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:10:53] "GET / HTTP/1.1" 200 -
+db-1        | 2025-05-18 19:15:00.622 UTC [27] LOG:  checkpoint starting: time
+db-1        | 2025-05-18 19:15:04.982 UTC [27] LOG:  checkpoint complete: wrote 46 buffers (0.3%); 0 WAL file(s) added, 0 removed, 0 recycled; write=4.322 s, sync=0.021 s, total=4.360 s; sync files=34, longest=0.003 s, average=0.001 s; distance=189 kB, estimate=189 kB; lsn=0/1A98AE8, redo lsn=0/1A98A90
+backend-1   | DELETE /api/v1/professores/ - 0.0710s
+backend-1   | INFO:     172.18.0.4:55228 - "DELETE /api/v1/professores/ HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:16:55] "GET /reset HTTP/1.1" 302 -
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:16:55] "GET / HTTP/1.1" 200 -
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:16:56] "GET / HTTP/1.1" 200 -
+backend-1   | DELETE /api/v1/professores/ - 0.0514s
+backend-1   | INFO:     172.18.0.4:59000 - "DELETE /api/v1/professores/ HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:18:21] "GET /reset HTTP/1.1" 302 -
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:18:21] "GET / HTTP/1.1" 200 -
+backend-1   | GET /api/v1/professores/ - 0.0379s
+backend-1   | INFO:     172.18.0.4:50266 - "GET /api/v1/professores/ HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:18:31] "GET /professores HTTP/1.1" 200 -
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:18:45] "GET /cadastro HTTP/1.1" 200 -
+backend-1   | POST /api/v1/professores/ - 0.0548s
+backend-1   | INFO:     172.18.0.4:41158 - "POST /api/v1/professores/ HTTP/1.1" 201 Created
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:19:25] "POST /cadastro HTTP/1.1" 302 -
+backend-1   | GET /api/v1/professores/ - 0.0398s
+backend-1   | INFO:     172.18.0.4:41160 - "GET /api/v1/professores/ HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:19:25] "GET /professores HTTP/1.1" 200 -
+backend-1   | GET /api/v1/professores/3 - 0.0380s
+backend-1   | INFO:     172.18.0.4:47344 - "GET /api/v1/professores/3 HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:19:41] "GET /editar/3 HTTP/1.1" 200 -
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:19:46] "GET /cadastro HTTP/1.1" 200 -
+backend-1   | POST /api/v1/professores/ - 0.0415s
+backend-1   | INFO:     172.18.0.4:59040 - "POST /api/v1/professores/ HTTP/1.1" 201 Created
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:19:53] "POST /cadastro HTTP/1.1" 302 -
+backend-1   | GET /api/v1/professores/ - 0.0662s
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:19:53] "GET /professores HTTP/1.1" 200 -
+backend-1   | INFO:     172.18.0.4:59056 - "GET /api/v1/professores/ HTTP/1.1" 200 OK
+db-1        | 2025-05-18 19:20:00.983 UTC [27] LOG:  checkpoint starting: time
+db-1        | 2025-05-18 19:20:06.649 UTC [27] LOG:  checkpoint complete: wrote 57 buffers (0.3%); 0 WAL file(s) added, 0 removed, 0 recycled; write=5.621 s, sync=0.027 s, total=5.667 s; sync files=41, longest=0.008 s, average=0.001 s; distance=285 kB, estimate=285 kB; lsn=0/1AE00F8, redo lsn=0/1AE00A0
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:20:31] "GET /cadastro HTTP/1.1" 200 -
+backend-1   | POST /api/v1/professores/ - 0.0415s
+backend-1   | INFO:     172.18.0.4:40132 - "POST /api/v1/professores/ HTTP/1.1" 201 Created
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:20:38] "POST /cadastro HTTP/1.1" 302 -
+backend-1   | GET /api/v1/professores/ - 0.0369s
+backend-1   | INFO:     172.18.0.4:40140 - "GET /api/v1/professores/ HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:20:38] "GET /professores HTTP/1.1" 200 -
+backend-1   | GET /api/v1/professores/3 - 0.0369s
+backend-1   | INFO:     172.18.0.4:36172 - "GET /api/v1/professores/3 HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:21:00] "GET /editar/3 HTTP/1.1" 200 -
+backend-1   | PATCH /api/v1/professores/3 - 0.0444s
+backend-1   | INFO:     172.18.0.4:58392 - "PATCH /api/v1/professores/3 HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:21:12] "POST /editar/3 HTTP/1.1" 302 -
+backend-1   | GET /api/v1/professores/ - 0.0370s
+backend-1   | INFO:     172.18.0.4:58402 - "GET /api/v1/professores/ HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:21:12] "GET /professores HTTP/1.1" 200 -
+backend-1   | GET /api/v1/professores/3 - 0.0361s
+backend-1   | INFO:     172.18.0.4:45100 - "GET /api/v1/professores/3 HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:21:16] "GET /editar/3 HTTP/1.1" 200 -
+backend-1   | PATCH /api/v1/professores/3 - 0.0435s
+backend-1   | INFO:     172.18.0.4:59292 - "PATCH /api/v1/professores/3 HTTP/1.1" 200 OK
+backend-1   | PATCH /api/v1/professores/3 - 0.0444s
+backend-1   | INFO:     172.18.0.4:58392 - "PATCH /api/v1/professores/3 HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:21:12] "POST /editar/3 HTTP/1.1" 302 -
+backend-1   | GET /api/v1/professores/ - 0.0370s
+backend-1   | INFO:     172.18.0.4:58402 - "GET /api/v1/professores/ HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:21:12] "GET /professores HTTP/1.1" 200 -
+backend-1   | GET /api/v1/professores/3 - 0.0361s
+backend-1   | INFO:     172.18.0.4:45100 - "GET /api/v1/professores/3 HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:21:16] "GET /editar/3 HTTP/1.1" 200 -
+backend-1   | PATCH /api/v1/professores/3 - 0.0435s
+backend-1   | INFO:     172.18.0.4:59292 - "PATCH /api/v1/professores/3 HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:21:55] "POST /editar/3 HTTP/1.1" 302 -
+backend-1   | GET /api/v1/professores/ - 0.0490s
+backend-1   | INFO:     172.18.0.4:59296 - "GET /api/v1/professores/ HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:21:55] "GET /professores HTTP/1.1" 200 -
+backend-1   | DELETE /api/v1/professores/1 - 0.0559s
+backend-1   | INFO:     172.18.0.4:57454 - "DELETE /api/v1/professores/1 HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:22:15] "GET /excluir/1 HTTP/1.1" 302 -
+backend-1   | GET /api/v1/professores/ - 0.0387s
+backend-1   | INFO:     172.18.0.4:57464 - "GET /api/v1/professores/ HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:22:15] "GET /professores HTTP/1.1" 200 -
+backend-1   | PATCH /api/v1/professores/3 - 0.0444s
+backend-1   | INFO:     172.18.0.4:58392 - "PATCH /api/v1/professores/3 HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:21:12] "POST /editar/3 HTTP/1.1" 302 -
+backend-1   | GET /api/v1/professores/ - 0.0370s
+backend-1   | INFO:     172.18.0.4:58402 - "GET /api/v1/professores/ HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:21:12] "GET /professores HTTP/1.1" 200 -
+backend-1   | GET /api/v1/professores/3 - 0.0361s
+backend-1   | INFO:     172.18.0.4:45100 - "GET /api/v1/professores/3 HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:21:16] "GET /editar/3 HTTP/1.1" 200 -
+backend-1   | PATCH /api/v1/professores/3 - 0.0435s
+backend-1   | INFO:     172.18.0.4:59292 - "PATCH /api/v1/professores/3 HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:21:55] "POST /editar/3 HTTP/1.1" 302 -
+backend-1   | GET /api/v1/professores/ - 0.0490s
+backend-1   | INFO:     172.18.0.4:59296 - "GET /api/v1/professores/ HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:21:55] "GET /professores HTTP/1.1" 200 -
+backend-1   | DELETE /api/v1/professores/1 - 0.0559s
+backend-1   | INFO:     172.18.0.4:57454 - "DELETE /api/v1/professores/1 HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:22:15] "GET /excluir/1 HTTP/1.1" 302 -
+backend-1   | GET /api/v1/professores/ - 0.0387s
+backend-1   | INFO:     172.18.0.4:57464 - "GET /api/v1/professores/ HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:22:15] "GET /professores HTTP/1.1" 200 -
+backend-1   | PATCH /api/v1/professores/3 - 0.0444s
+backend-1   | INFO:     172.18.0.4:58392 - "PATCH /api/v1/professores/3 HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:21:12] "POST /editar/3 HTTP/1.1" 302 -
+backend-1   | GET /api/v1/professores/ - 0.0370s
+backend-1   | INFO:     172.18.0.4:58402 - "GET /api/v1/professores/ HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:21:12] "GET /professores HTTP/1.1" 200 -
+backend-1   | GET /api/v1/professores/3 - 0.0361s
+backend-1   | INFO:     172.18.0.4:45100 - "GET /api/v1/professores/3 HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:21:16] "GET /editar/3 HTTP/1.1" 200 -
+backend-1   | PATCH /api/v1/professores/3 - 0.0435s
+backend-1   | INFO:     172.18.0.4:59292 - "PATCH /api/v1/professores/3 HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:21:55] "POST /editar/3 HTTP/1.1" 302 -
+backend-1   | GET /api/v1/professores/ - 0.0490s
+backend-1   | INFO:     172.18.0.4:59296 - "GET /api/v1/professores/ HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:21:55] "GET /professores HTTP/1.1" 200 -
+backend-1   | INFO:     172.18.0.4:58392 - "PATCH /api/v1/professores/3 HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:21:12] "POST /editar/3 HTTP/1.1" 302 -
+backend-1   | GET /api/v1/professores/ - 0.0370s
+backend-1   | INFO:     172.18.0.4:58402 - "GET /api/v1/professores/ HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:21:12] "GET /professores HTTP/1.1" 200 -
+backend-1   | GET /api/v1/professores/3 - 0.0361s
+backend-1   | INFO:     172.18.0.4:45100 - "GET /api/v1/professores/3 HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:21:16] "GET /editar/3 HTTP/1.1" 200 -
+backend-1   | PATCH /api/v1/professores/3 - 0.0435s
+backend-1   | INFO:     172.18.0.4:59292 - "PATCH /api/v1/professores/3 HTTP/1.1" 200 OK
+backend-1   | GET /api/v1/professores/ - 0.0370s
+backend-1   | INFO:     172.18.0.4:58402 - "GET /api/v1/professores/ HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:21:12] "GET /professores HTTP/1.1" 200 -
+backend-1   | GET /api/v1/professores/3 - 0.0361s
+backend-1   | INFO:     172.18.0.4:45100 - "GET /api/v1/professores/3 HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:21:16] "GET /editar/3 HTTP/1.1" 200 -
+backend-1   | PATCH /api/v1/professores/3 - 0.0435s
+backend-1   | INFO:     172.18.0.4:59292 - "PATCH /api/v1/professores/3 HTTP/1.1" 200 OK
+backend-1   | INFO:     172.18.0.4:58402 - "GET /api/v1/professores/ HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:21:12] "GET /professores HTTP/1.1" 200 -
+backend-1   | GET /api/v1/professores/3 - 0.0361s
+backend-1   | INFO:     172.18.0.4:45100 - "GET /api/v1/professores/3 HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:21:16] "GET /editar/3 HTTP/1.1" 200 -
+backend-1   | PATCH /api/v1/professores/3 - 0.0435s
+backend-1   | INFO:     172.18.0.4:59292 - "PATCH /api/v1/professores/3 HTTP/1.1" 200 OK
+backend-1   | GET /api/v1/professores/3 - 0.0361s
+backend-1   | INFO:     172.18.0.4:45100 - "GET /api/v1/professores/3 HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:21:16] "GET /editar/3 HTTP/1.1" 200 -
+backend-1   | PATCH /api/v1/professores/3 - 0.0435s
+backend-1   | INFO:     172.18.0.4:59292 - "PATCH /api/v1/professores/3 HTTP/1.1" 200 OK
+backend-1   | INFO:     172.18.0.4:45100 - "GET /api/v1/professores/3 HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:21:16] "GET /editar/3 HTTP/1.1" 200 -
+backend-1   | PATCH /api/v1/professores/3 - 0.0435s
+backend-1   | INFO:     172.18.0.4:59292 - "PATCH /api/v1/professores/3 HTTP/1.1" 200 OK
+backend-1   | PATCH /api/v1/professores/3 - 0.0435s
+backend-1   | INFO:     172.18.0.4:59292 - "PATCH /api/v1/professores/3 HTTP/1.1" 200 OK
+backend-1   | INFO:     172.18.0.4:59292 - "PATCH /api/v1/professores/3 HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:21:55] "POST /editar/3 HTTP/1.1" 302 -
+backend-1   | GET /api/v1/professores/ - 0.0490s
+backend-1   | INFO:     172.18.0.4:59296 - "GET /api/v1/professores/ HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:21:55] "GET /professores HTTP/1.1" 200 -
+backend-1   | DELETE /api/v1/professores/1 - 0.0559s
+backend-1   | INFO:     172.18.0.4:57454 - "DELETE /api/v1/professores/1 HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:22:15] "GET /excluir/1 HTTP/1.1" 302 -
+backend-1   | GET /api/v1/professores/ - 0.0387s
+backend-1   | INFO:     172.18.0.4:57464 - "GET /api/v1/professores/ HTTP/1.1" 200 OK
+frontend-1  | 172.18.0.1 - - [18/May/2025 19:22:15] "GET /professores HTTP/1.1" 200 -
+db-1        | 2025-05-18 19:25:00.737 UTC [27] LOG:  checkpoint starting: time
+db-1        | 2025-05-18 19:25:01.157 UTC [27] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.405 s, sync=0.007 s, total=0.420 s; sync files=5, longest=0.004 s, average=0.002 s; distance=1 kB, estimate=257 kB; lsn=0/1AE0888, redo lsn=0/1AE0830
