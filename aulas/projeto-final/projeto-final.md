@@ -55,7 +55,7 @@ Você deverá gravar um vídeo com **no máximo 7 minutos**, contendo:
 | Item                          | Pontos |
 |-------------------------------|--------|
 | Frontend (mín. 3 telas)       | 30 pts |
-| Backend + persistência        | 60 pts |
+| Backend + persistência        | 70 pts |
 | Execução via Docker Compose   | Obrigatório |
 | Semelhança com projeto de lab | -50 pts (caso ocorra plágio ou cópia excessiva) |
 
